@@ -1,0 +1,111 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amssymb} %THP : nécessaire pour avoir \mathbb
+\usepackage{amsthm} %THP : pour avoir des environnements adaptés pour les définitions etc. 
+
+\theoremstyle{definition}
+\newtheorem{lemme}{Lemme}
+\newtheorem{definition}{Définition}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{preuve}{Preuve}
+\newtheorem{notation}{Notation}
+
+\title{Latex}
+\author{Amaury Briand}
+\date{July 2024}
+
+\begin{document}
+
+\maketitle
+
+%THP : J'ai ajouté des environnements pour les définitions, lemmes, etc.
+%THP : Note que \text ne s'utilise que très rarement et toujours dans des équations ($$ ou environnement equation, equation*, align ou align*).
+
+\section{Marche aléatoire isotrope dans $\mathbb{Z}^d$}
+
+\begin{notation}
+On note $X_{n}$ une suite de variables aléatoires tel que pour tout n$\in {N}^{*}$ P($X_{n}$ = 1) = 1/2 et P($X_{n}$ = -1) = 1/2. On note $S_{n} = \sum_{k=1}^{2n} X_{k}$ ainsi $S_{n}$ représente la "position" de la marche aléatoire après n pas. La marche aléatoire est donc à son origine à la n-ième étape lorsque $S_{n}$ = 0.
+\end{notation}
+
+\begin{definition}
+    La marche aléatoire est récurrente si et seulement si elle revient pour sur à 0.
+\end{definition}
+
+\begin{lemme}
+    En notant Y = $|$n$\in {N}^{*}$, $S_{n}$ = 0$|$, la marche est récurrente si et seulement si E(Y) = +$\infty$.
+\end{lemme}
+
+\begin{preuve}
+    Supposons E(Y) = + $\infty$ alors on dispose d'une infinité de n $\in {N}^{*}$ tel que $S_{n}$ = 0 ainsi la marche est récurrente.\\
+    Réciproquement supposons la marche récurrente on dispose alors de n dans $N^{*}$ tel que  $S_{n}$ = 0 après la n-ième étape la marche est dans la même situation que à l'étape 0. Elle va donc nécessairement revenir à 0 une nouvelle fois après n. La marche revient donc une infinité de fois à 0. D'où $|$Y$|$ = +$\infty$
+\end{preuve}
+
+
+\section{Cas en 1 dimension}
+\begin{align*}
+P(S_{2n} = 0) &= |P( \sum_{k=1}^{2n} X_k = 0 )| \\
+ &= \binom{2n}{n} (\frac{1}{2})^n (\frac{1}{2})^n \\
+ &= \frac{2n!}{(n!)^2} (\frac{1}{2})^2n \\
+ &= \frac{\sqrt{4 \pi n} (\frac{2n}{e})^{2n}}{(\sqrt{2 \pi n} (\frac{n}{e})^n)^{2}} (\frac{1}{2})^{2n}\\
+ &= \frac{1}{\sqrt{\pi n}}\\
+\end{align*}
+Or $\sum_{n=1}^{+\infty} \frac{1}{\sqrt{\pi n}} = +\infty$ \\
+Donc $\sum_{n=1}^{+\infty} P(S_{2n} = 0) = +\infty$
+Or d'après le théorème de transfert E(Y) = $\sum_{n=1}^{+\infty} P(S_{2n} = 0)$ \\
+Par le lemme établi précedemment, dans Z la marche aléatoire isotrope est récurrente.
+
+
+\section{Cas en dimension 2}
+
+
+$X_{k}$  représente la direction prise à la k-ième étape ainsi
+
+
+$X_k$ = 
+\begin{array}{ll}
+B si bas \\
+G si gauche \\
+D si droite
+\end{array}
+\\
+On note card(A) = $|k \in {N}^{*},X_{k} = A|$ pour A = G,D,H ou B
+\\
+\begin{align*}
+P(S_{2n} = 0) &= P ( card(H) = card(B) \land  card(G) =|card(D) )\\  
+&= P( \bigcup_{k=0}^{n} \bigcup_{\substack{P \subset [0, 2N] \cap \mathbb{N},  |P| = k}} card(H) = card(B) = k \land card(G) = card(D) = n-k) \\
+&= \sum_{k=0}^{n} \binom{2n}{k} \frac{1}{4^{k}} \binom{2n-k}{k} \frac{1}{4^{k}} \binom{2n-2k}{n-k} \frac{1}{4^{n-k}} \frac{1}{4^{n-k}} \\
+&= \frac{1}{4^{2n}} \sum_{k=0}^{n}  \frac{(2n)!}{k!(2n-k)!}\cdot \frac{(2n-k)!}{k!(2n-2k)!} \cdot \frac{(2n-2k)!}{((n-k)!)^2} \\
+ &= \frac{1}{4^{2n}} \sum_{h=0}^{2n} \frac{(2n)!}{(h!)^2 (n-h)!^2}\\
+ &= \frac{1}{4^{2n}} \sum_{h=0}^{2n} \frac{(2n)!}{(n!)^2} \binom{n}{h}^2\\
+ &= \frac{1}{4^{2n}} \frac{(2n)!}{(n!)^2} \sum_{h=0}^{2n}  \binom{n}{h}^2
+\end{align*}
+
+\textbf{Calcul de} $\sum_{k=0}^{n} \binom{n}{k}^2$ : \\
+
+\begin{equation*}
+(1+x)^{2n} = \sum_{k=0}^{2n} \binom{2n}{k} x^k
+\end{equation*}
+ or 
+ \begin{equation*}
+ (1+x)^{2n} = ( \sum_{k=0}^{n} \binom{n}{k} x^k )^2
+\end{equation*}
+en identifiant le terme en $x^{2n}$ on obtient la relation :
+
+\begin{align*}
+\binom{2n}{n} x^n &=  \sum_{k=0}^{n} \binom{n}{k} \binom{n}{n-k} x^k x^{n-k} \\
+ &= \sum_{k=0}^{n} \binom{n}{k} \binom{n}{n-k} x^n \\
+ Ainsi \\
+ \sum_{k=0}^{n} \binom{n}{k}^2 &= \binom{2n}{n} \\
+ D'ou \\
+ &= \frac{1}{\pi n} \\
+ \sum_{n=1}^{+\infty} \frac{1}{\pi n} &= + \infty \\
+ \end{align*} 
+De même que précedemment avec le théorème de transfert on obtient \\
+E(Y) = $\sum_{n=1}^{+\infty} P(S_{2n} = 0)$ \\
+Donc la marche est récurrente en dimension 2.
+
+\section{Temps moyen de premier retour en 1D}
+
+
+\end{document}
