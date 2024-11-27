@@ -96,14 +96,9 @@ print("le temps retour moyen en 2D est ", moyenne(retour_2(100)))
 
 
 
-#comment retirer le 1 du "preuve 1" ?
-#comment aligner à gauche les équations ? !!!!!
-#comment faire la grande acolade ?
-
-
-
-#pour le nulmérique on regarde le temps moyen de plus court retour. On compil et on fait des stats 
-# on va "plier" les probas qui s'éloigent du centre
-
-
-#faire une overview de tout mon truc
+# comment retirer le 1 du "preuve 1" ?
+# comment aligner à gauche les équations ?
+# comment faire la grande acolade ?
+# j'ai pas trouvé si l'espérance du premier retour à l'origine est infinie :(
+# Pour le truc numérique, je commence à faire pleins de runs et je note ce que j'ai / fais des courbes ?
+# C'est grave si j'ai que des maths ? Pas un peu boring ?
