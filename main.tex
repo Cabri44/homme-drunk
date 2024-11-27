@@ -10,6 +10,7 @@
 \newtheorem{theoreme}{Théorème}
 \newtheorem{preuve}{Preuve}
 \newtheorem{notation}{Notation}
+\newtheorem{remarque}{Remarque}
 
 \title{Latex}
 \author{Amaury Briand}
@@ -25,11 +26,13 @@
 \section{Marche aléatoire isotrope dans $\mathbb{Z}^d$}
 
 \begin{notation}
-On note $X_{n}$ une suite de variables aléatoires tel que pour tout n$\in {N}^{*}$ P($X_{n}$ = 1) = 1/2 et P($X_{n}$ = -1) = 1/2. On note $S_{n} = \sum_{k=1}^{2n} X_{k}$ ainsi $S_{n}$ représente la "position" de la marche aléatoire après n pas. La marche aléatoire est donc à son origine à la n-ième étape lorsque $S_{n}$ = 0.
+On note $X_{n}$ une suite de variables aléatoires tel que pour tout n$\in {N}^{*}$ P($X_{n}$ = 1) = 1/2 et P($X_{n}$ = -1) = 1/2. On note $S_{n} = \sum_{k=1}^{2n} X_{k}$ ainsi $S_{n}$ représente la "position" de la marche aléatoire après n pas. 
+La marche aléatoire est donc à son origine à la n-ième étape lorsque $S_{n}$ = 0. 
 \end{notation}
 
 \begin{definition}
-    La marche aléatoire est récurrente si et seulement si elle revient pour sur à 0.
+    On dit que la marche aléatoire est récurrente si
+    elle revient pour sur à 0.
 \end{definition}
 
 \begin{lemme}
@@ -37,12 +40,34 @@ On note $X_{n}$ une suite de variables aléatoires tel que pour tout n$\in {N}^{
 \end{lemme}
 
 \begin{preuve}
-    Supposons E(Y) = + $\infty$ alors on dispose d'une infinité de n $\in {N}^{*}$ tel que $S_{n}$ = 0 ainsi la marche est récurrente.\\
-    Réciproquement supposons la marche récurrente on dispose alors de n dans $N^{*}$ tel que  $S_{n}$ = 0 après la n-ième étape la marche est dans la même situation que à l'étape 0. Elle va donc nécessairement revenir à 0 une nouvelle fois après n. La marche revient donc une infinité de fois à 0. D'où $|$Y$|$ = +$\infty$
+     Supposons la marche récurrente on dispose alors de n dans $N^{*}$ tel que  $S_{n}$ = 0 après la n-ième étape la marche est dans la même situation que à l'étape 0. Elle va donc nécessairement revenir à 0 une nouvelle fois après n. La marche revient donc une infinité de fois à 0. D'où E(Y) = +$\infty$
+     Réciproquement supposons E(Y) = $\infty$ montrons que la marche revient pour sur en 0.
+     Notons p la probabilité que le marcheur revienne à 0 et supposons par l'absurde que p < 0.
+     Alors la probabilité que le marcheur ne revienne 
+     pas à l'origine est 1-p. D'où P(V = 0) = 1-p. 
+     Plus généralement pour k dans N, P(V = k) = p^{k}, montrons ce résultat par récurrence.
+     Pour V=0, on a montré qu'il est valide. Supposons le valide pour m dans N. Alors P(V = m+1) = P(V = m) * p donc P(V = m+1) = p^{m+1} (1-p). D'où le résultat par récurrence.
+     Par le théorème de transfert on a
+\begin{align*}
+E(V) &= \sum_{k}^{+\infty} k P(X = k)
+&= \sum_{k}^{+\infty} k (1 - p) p^k
+&= p (1 - p) \sum_{k = 1}^{+\infty} k p^{k - 1}
+En posant \(f^{k} (x) \mapsto x^{k-1} \), on a
+= p (1 - p) \sum_{k = 1}^{+\infty} f'_k (p)
+=p (1 - p) (\sum_{k = 1}^{+\infty} f_k (p))'
+= p (1 - p) ( \frac{p}{(1 - p)} )'
+= p (1 - p)  \frac{1-p+p}{(1 - p)^2} 
+= \frac{p}{1 - p} < {+\infty}
+\end{align*}
+Or E(V) = {+\infty} on a donc une contradiction, d'où p=1 et donc la marche est récurrente.
 \end{preuve}
 
 
 \section{Cas en 1 dimension}
+\begin{remarque}
+On s'intéresse uniquement à des marches ayant un nombre pair de pas, le retour à l'origine au bout d'un nombre impair de pas étant impossible.
+\end{remarque}
+
 \begin{align*}
 P(S_{2n} = 0) &= |P( \sum_{k=1}^{2n} X_k = 0 )| \\
  &= \binom{2n}{n} (\frac{1}{2})^n (\frac{1}{2})^n \\
@@ -55,6 +80,7 @@ Donc $\sum_{n=1}^{+\infty} P(S_{2n} = 0) = +\infty$
 Or d'après le théorème de transfert E(Y) = $\sum_{n=1}^{+\infty} P(S_{2n} = 0)$ \\
 Par le lemme établi précedemment, dans Z la marche aléatoire isotrope est récurrente.
 
+\section{Vérification numérique}
 
 \section{Cas en dimension 2}
 
@@ -63,7 +89,7 @@ $X_{k}$  représente la direction prise à la k-ième étape ainsi
 
 
 $X_k$ = 
-\begin{array}{ll}
+\begin{array}
 B si bas \\
 G si gauche \\
 D si droite
@@ -95,17 +121,27 @@ en identifiant le terme en $x^{2n}$ on obtient la relation :
 \begin{align*}
 \binom{2n}{n} x^n &=  \sum_{k=0}^{n} \binom{n}{k} \binom{n}{n-k} x^k x^{n-k} \\
  &= \sum_{k=0}^{n} \binom{n}{k} \binom{n}{n-k} x^n \\
+  \end{align*} 
  Ainsi \\
- \sum_{k=0}^{n} \binom{n}{k}^2 &= \binom{2n}{n} \\
+$ \sum_{k=0}^{n} \binom{n}{k}^2 &= \binom{2n}{n}$ \\
  D'ou \\
- &= \frac{1}{\pi n} \\
- \sum_{n=1}^{+\infty} \frac{1}{\pi n} &= + \infty \\
- \end{align*} 
+$ &= \frac{1}{\pi n} \\
+ \sum_{n=1}^{+\infty} \frac{1}{\pi n} &= + \infty \\$
+
 De même que précedemment avec le théorème de transfert on obtient \\
 E(Y) = $\sum_{n=1}^{+\infty} P(S_{2n} = 0)$ \\
 Donc la marche est récurrente en dimension 2.
 
 \section{Temps moyen de premier retour en 1D}
 
+\section{Vérification numérique}
+
+\section{Transience en dimension supérieure ou égale à 3}
+
+On s'intéresse au calcul de l'espérance de Y = $|$n$\in {N}^{*}$, $S_{n}$ = 0$|$ en dimension d.
+On peut obtenir que la probabilité que la marche soit à la position 0 après 2n étape est un grand O$(n^{d/2})$ ainsi on a 
+Y = $\sum_{n=0}^{+inf}$ $P(S_{n})$ qui converge pour d ≥ 3, ainsi par le lemme 1, la marche est transiente.
+
+Note : En dimension 1 et 2, cette propriété reste valable puisque la série $\sum_{n=0}^{+inf}$ $P(S_{n})$ est alors divergente et donc Y est infini et la marche est récurrente.
 
 \end{document}
