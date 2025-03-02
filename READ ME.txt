@@ -1,0 +1,8 @@
+Explications de l'arborescence de mon git:
+ - Tout le code est dans le fichier "aléa"
+ - Les fichier de la forme "marche_10000_d" sont la réprésenations de 1000 marches en dimension d et la proportion de leur retours après 10000 pas.
+ - le fichier "marche_1000.png" est un graph résumant ces résultats
+ - les fichier "marche 1D", "marche 2D", "marche 3D", "marche 5D" sont des fichiers antérieurs aux "marches_10000" et ont généralement plus de pas que 10000.
+
+
+Désolé de pas avoir un truc plus clair, j'arrive pas à créer de fichiers sur git pour faire le tri
