@@ -3,7 +3,7 @@ from math import *
 import numpy as np
 from time import *
 import matplotlib.pyplot as plt
-
+import os
 plt.style.use("fivethirtyeight")
 
 def testn(n, d_0):
@@ -297,6 +297,7 @@ def max_ecart(filename="resultat.txt"):
 
     return position, plus_grand
     
+
 def proportion_retour(n, max_p, filename="retour_1D.txt"):
     """
     Calcule la proportion de marches aléatoires revenant en 0 avant chaque pas jusqu'à max_p.
@@ -662,9 +663,72 @@ def marche_aleatoire_graphique(directions, k):
     plt.savefig(f"marche1D.{k}.png")
     plt.close()  # Fermer la figure pour libérer de la mémoire
 
+def marche_10000(d,max_p = 10000, n = 1000,filename = "marche_10000_13"):
+    retours = [0] * (max_p + 1)
+    possibilités = []
+    for i in range(d):
+        a = [0] * d
+        b = [0] * d
+        a[i] = 1
+        b[i] = -1
+        possibilités.append(a.copy())
+        possibilités.append(b.copy())
+    position_0 = [0 for _ in range(d)]
+    for _ in range(n):
+        position = [0 for _ in range(d)]
+        for step in range(1, max_p + 1):
+            direction = choice(possibilités)
+            position = [position[i] + direction[i] for i in range(d)]
+            if position == position_0:
+                retours[step] += 1
+                break
+
+    proportions = [sum(retours[:i+1]) / n for i in range(max_p + 1)]
+    with open(filename, "w") as f:
+        f.write("Pas\tProportion\n")
+        for step, proportion in enumerate(proportions):
+            f.write(f"{step}\t{proportion:.5f}\n")
+
+    print(f"Les résultats ont été enregistrés dans {filename}.")
+
+
+def retours_10000(n):
+    res = []
+    for i in range(1, n):
+        with open(f"/Users/amo/TIPE/marche_1000/marche_10000_{i}", "r") as f:
+            lignes = f.readlines()
+        res.append(float(lignes[-1].split()[1]))
+  
+    x_coords = list(range(1, len(res) + 1)) 
+
+    plt.figure(figsize=(12, 6))  
+
+    plt.plot(x_coords, res, marker='o', markersize=5, linestyle='-', linewidth=2, color='b')
+
+    plt.xlabel("Dimension", fontsize=12)
+    plt.ylabel("Taux de retour après 10000 pas", fontsize=12)
+    plt.title("Taux de retour après 10000 pas en fonction de la dimension", fontsize=14)
+
+    plt.ylim(-0.1 * max(res), max(res) * 1.2)  # Ajoute plus de place en bas
+    plt.xlim(0, len(res) + 1)  # L’axe X commence à 0
+
+    plt.grid(True, linestyle='--', alpha=0.5)  # Quadrillage léger
+
+    # Ajout de traits plus visibles pour les axes
+    plt.gca().spines["left"].set_linewidth(1.5)   
+    plt.gca().spines["bottom"].set_linewidth(1.5)  
+
+    plt.tight_layout()  # Corrige le problème de texte coupé
+
+    plt.savefig("/Users/amo/TIPE/marche_1000/marche_1000.png", bbox_inches='tight')
+    plt.show()
+
+retours_10000(30)
+
+
 # Générer les 6 graphes correspondant aux 6 étapes de la marche
-for k in range(1, 7):
-    marche_aleatoire_graphique(directions, k)
+#for k in range(1, 7):
+ #   marche_aleatoire_graphique(directions, k)
 
 #tracer_graphique(fichiers, labels)
 
@@ -683,44 +747,3 @@ for k in range(1, 7):
 #print("le temps retour moyen en 2D est ", moyenne(retour_2(100)))
 
 
-
-#comment retirer le 1 du "preuve 1" ?
-#comment aligner à gauche les équations ?
-#comment faire la grande acolade ?
-
-
-
-# pour le numérique on regarde le temps moyen de plus court retour. On compil et on fait des stats 
-# on va "plier" les probas qui s'éloiegent du centre
-
-
-
-#faire une overview de tout mon truc
-
-
-
-# comment retirer le 1 du "preuve 1" ?
-# comment aligner à gauche les équations ?
-# comment faire la grande acolade ?
-# mon premier align est désatreux
-# comment insérer du latex dans mes slides ?
-# Chat GPT c'est grave ?
-
-
-
-# j'ai pas trouvé si l'espérance du premier retour à l'origine est infinie :(
-# Pour le truc numérique, je commence à faire pleins de runs et je note ce que j'ai / fais des courbes ?
-# C'est grave si j'ai que des maths ? Pas un peu boring ?
-
-
-
-# Regarder le Nn du Mine Pont
-#D'abord la théorie puis la pratique
-# faire du numpy
-
-# Comment noter {} en Latex cf ligne 110
-
-#Numéro d'inscription
-#23129
-#Mot de passe
-#L5g2umYA
